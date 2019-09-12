@@ -1,5 +1,5 @@
 调用Testmanager1.insert()方法，尽管Testmanager2.insert事会抛出异常，Testmanager2.insert事务回滚，Testmanager1.insert()事务成功
-如果将Testmanager2.insert的Propagation.REQUIRES_NEW改为Propagation.REQUIRED，即使Testmanager2.insert的异常被catch住，，Testmanager1.insert()事务也会回滚，原因见源码：
+如果将Testmanager2.insert的Propagation.REQUIRES_NEW改为Propagation.REQUIRED，即使Testmanager2.insert的异常被catch住，Testmanager1.insert()事务也会回滚，原因见源码：
 AbstractPlatformTransactionManager.processRollback方法中调用的：doSetRollbackOnly(status);
 
 @Service
