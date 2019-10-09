@@ -1,0 +1,14 @@
+@Service
+class A implement IA{
+}
+A所在的包会给所有类加上事务这个aop，因为A继承自接口，于是spring会使用jdk动态代理创建bean，
+这时候B类无法注入a,因为jdk动态代理创建的不是A的实例bean，
+class B{
+  @Autowire
+  A a;
+}
+这时候C类可以注入a,因为C类用A的接口接收a,因为jdk动态代理创建的是IA的子类
+class C{
+  @Autowire
+  IA a;
+}
