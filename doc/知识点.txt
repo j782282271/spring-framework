@@ -1,0 +1,1 @@
+spring中的prototype作用域理解：原型模式，即copy对象，所以每次都是copy一个新对象，相当于新建对象每次getBean都是新对像
