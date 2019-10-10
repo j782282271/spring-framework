@@ -1,0 +1,38 @@
+小程序请求后端的content-type：application/x-www-form-urlencoded;charset=UTF-8
+app请求后端的content-type：application/x-www-form-urlencoded;charset=UTF-8
+js前端请求后端的content-type：application/x-www-form-urlencoded;charset=UTF-8
+springMVC 默认content-type是空，即支持任何请求类型（RequestMappingInfo.getMatchingCondition）
+
+
+
+content-type为application/x-www-form-urlencoded;charset=UTF-8传输时候请求体的格式为
+taskName:zidingyi
+startDate:2019-06-23
+
+content-type为application/json;charset=UTF-8传输时候请求体的格式为
+{"a":1,"b":"as"}
+
+参考wiki：https://www.cnblogs.com/zhaoyanhaoBlog/p/9357027.html
+总结：
+1）请求content-type为application/x-www-form-urlencoded时，请求体为如下：
+   name:aaa
+	 phone:15942420467
+	 可以用以下方式接收：
+   1.1）public void addCustomTask(User user) {}//User含有两个字段name、phone
+   1.2）public void addCustomTask(@RequestParam("name") String name,@RequestParam("phone") String phone) {}//User含有两个字段name、phone
+   1.3）public void addCustomTask(@RequestBody String reqBody) {}//则reqBody值为name=aaa&phone=15942420467
+   1.4）1.2情况入参如果还有一个入参为firends:a,b，则接收函数再加一个参数String[] firends(或者@RequestParam("firends") List<String> firends，RequestParam是必须的)是可以接收到的，
+        如果再加一个复杂参数，是无法接收的如List<Friend> 需要用@RequestBody方式
+  
+      
+2）请求content-type为application/json时，请求体为如下：
+   {"name":"aaa","phone":"15942420467"}
+	 可以用以下方式接收：
+   2.1）public void addCustomTask(@RequestBody User user) {}//User含有两个字段name、phone,注意@RequestBody很重要
+   2.2）注意这种形式无法接收json的输入public void addCustomTask(String name,String phone) {}
+   2.3）还需注意：当前端传参为User数组给后端时，后端参数这样写@RequestBody List<User> users是无法解析list内部的User的，list内部的User实际类型为map
+   后端参数这样写@RequestBody User[] users可以正确接收前端传来的内容。ps：User换为简单类型String(即List<User>换为List<String>)数组和List方式都可以
+
+
+im初期网页http发消息的时候，应前端要求，将消息json写为下面格式，然后json反解析为真正的Message类
+@RequestParam String message，也可以上前端的content-type设置为application/json
