@@ -1,1 +1,5 @@
-spring中的prototype作用域理解：原型模式，即copy对象，所以每次都是copy一个新对象，相当于新建对象每次getBean都是新对像
+1）spring中的prototype作用域理解：原型模式，即copy对象，所以每次都是copy一个新对象，相当于新建对象每次getBean都是新对像
+2）循环依赖三种情况
+   构造函数，报错
+   setter 单例情况，不报错将当前正在创建的对象放入inCreation list中
+   setter prototype情况，报错，因为无法缓存已创建的对象
