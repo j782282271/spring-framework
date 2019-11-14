@@ -5,5 +5,4 @@
    setter prototype情况，报错，因为无法缓存已创建的对象
 
 3）涉及到的设计模式：
-https://www.jianshu.com/p/09432974d7b9
-   
+https://blog.csdn.net/a745233700/article/details/80959716
