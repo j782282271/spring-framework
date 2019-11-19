@@ -6,3 +6,6 @@
 
 3）涉及到的设计模式：
 https://blog.csdn.net/a745233700/article/details/80959716
+中介者模式：
+springMVC中的DispatcherServlet其实就是一个中介者，把来的req转发给不同的controller方法处理。我理解其实中介者模式的核心解决的问题是 找到请求的接收者（而不是接收者怎样处理）
+，让正确接收者处理请求，也即将找到接收者的方法单独抽出来而不是分散在各处。
