@@ -20,10 +20,10 @@ content-type为application/json;charset=UTF-8传输时候请求体的格式为
 	 可以用以下方式接收：
    1.1）public void addCustomTask(User user) {}//User含有两个字段name、phone
    1.2）public void addCustomTask(@RequestParam("name") String name,@RequestParam("phone") String phone) {}//User含有两个字段name、phone
-   1.3）public void addCustomTask(@RequestBody String reqBody) {}//则reqBody值为name=aaa&phone=15942420467
+   1.3）public void addCustomTask(@RequestBody String reqBody) {}//则reqBody值为name=aaa&phone=15942420467，如果参数有有中文字符则RequestBody方式接收的到参数是经过url encode的
    1.4）1.2情况入参如果还有一个入参为firends:a,b，则接收函数再加一个参数String[] firends(或者@RequestParam("firends") List<String> firends，RequestParam是必须的)是可以接收到的，
-        如果再加一个复杂参数，是无法接收的如List<Friend> 需要用@RequestBody方式
-  
+        如果再加一个复杂参数，是无法接收的如List<Friend> 需要用@RequestBody方式。或者1.5）这种方式
+   1.5）friends:"value为复杂的json"，这样后端接收到后可以用jsonUtils自己反序列化，这种方式接收到的参数中即使有中文，也已经被处理好了
       
 2）请求content-type为application/json时，请求体为如下：
    {"name":"aaa","phone":"15942420467"}
@@ -35,4 +35,4 @@ content-type为application/json;charset=UTF-8传输时候请求体的格式为
 
 
 im初期网页http发消息的时候，应前端要求，将消息json写为下面格式，然后json反解析为真正的Message类
-@RequestParam String message，也可以上前端的content-type设置为application/json
+@RequestParam String message，也可以让前端的content-type设置为application/json，这块可以用Message类型接收
